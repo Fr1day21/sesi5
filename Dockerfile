@@ -2,8 +2,8 @@ FROM node:18
 
 WORKDIR /app
 
-# Salin semua file proyek dari host ke dalam container
-COPY . .
+# # Ensure mountpoint for node_modules exists for volume mounting
+#RUN mkdir -p ./node_modules
 
 # Install Chrome & ChromeDriver
 RUN apt-get update && apt-get install -y wget gnupg unzip && \
@@ -20,9 +20,4 @@ RUN CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d'.' -f1)
     chmod +x /usr/local/bin/chromedriver && \
     rm -rf /tmp/*
 
-# Tambahkan langkah ini untuk menginstal dependensi
-RUN npm install
-
-# Tambahkan perintah untuk menjalankan aplikasi
-# Ganti 'test' dengan skrip yang sesuai di package.json kamu (misalnya: start, dev, test)
-CMD [ "npm", "test" ]
+CMD [ "bash" ]
