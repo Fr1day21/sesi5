@@ -3,7 +3,7 @@ FROM node:18
 WORKDIR /app
 
 # # Ensure mountpoint for node_modules exists for volume mounting
-RUN mkdir -p ./node_modules
+#RUN mkdir -p ./node_modules
 
 # Install Chrome & ChromeDriver
 RUN apt-get update && apt-get install -y wget gnupg unzip && \
