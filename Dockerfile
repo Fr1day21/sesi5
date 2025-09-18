@@ -2,10 +2,12 @@ FROM node:18
 
 WORKDIR /app
 
-# # Ensure mountpoint for node_modules exists for volume mounting
-#RUN mkdir -p ./node_modules
+# SALIN SEMUA FILE PROYEK KE DALAM CONTAINER
+# Titik (.) pertama merujuk ke direktori lokal (tempat Dockerfile berada)
+# Titik (.) kedua merujuk ke direktori /app di dalam container
+COPY . .
 
-# Install Chrome & ChromeDriver
+# Install Chrome & ChromeDriver (langkah ini tidak perlu diubah)
 RUN apt-get update && apt-get install -y wget gnupg unzip && \
     wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
@@ -20,4 +22,7 @@ RUN CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d'.' -f1)
     chmod +x /usr/local/bin/chromedriver && \
     rm -rf /tmp/*
 
-CMD [ "bash" ]
+# Jika proyekmu memerlukan `npm install`, tambahkan baris ini
+# RUN npm install
+
+CMD ["bash"]
